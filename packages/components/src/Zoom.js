@@ -12,8 +12,8 @@ const ZoomInner = styled.div([], props => ({
   transform: `scale(${props.zoom})`,
 }))
 
-export const Zoom = ({ zoom, ...props }) => (
-  <ZoomRoot zoom={zoom}>
+export const Zoom = ({ zoom, rootStyle, ...props }) => (
+  <ZoomRoot zoom={zoom} style={rootStyle}>
     <ZoomInner zoom={zoom} {...props} />
   </ZoomRoot>
 )

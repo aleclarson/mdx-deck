@@ -36,12 +36,24 @@ export const Presenter = props => {
             marginRight: 'auto',
           }}
         >
-          <Zoom zoom={5 / 8}>{props.children}</Zoom>
+          <Zoom
+            zoom={5 / 8}
+            rootStyle={{
+              position: 'relative',
+              transform: 'translateY(-50%)',
+              top: '50%',
+            }}
+          >
+            {props.children}
+          </Zoom>
         </div>
         <div
           style={{
             width: 100 / 4 + '%',
             minWidth: 0,
+            maxHeight: '100vh',
+            overflowY: 'scroll',
+            paddingTop: 20,
             marginLeft: 'auto',
             marginRight: 'auto',
           }}

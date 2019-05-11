@@ -1,31 +1,28 @@
 // prototype for fluid resizable font size
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import React, { useLayoutEffect, useRef, useState } from 'react'
 import ResizeObserver from 'resize-observer-polyfill'
 
 export const FluidFontSize = ({ base = 16, children, className }) => {
+  const div = useRef(null)
   const [fontSize, setFontSize] = useState(base)
 
-  const mountedRef = useRef(true)
-  useEffect(() => () => (mountedRef.current = false), [])
-
-  const nodeRef = useRef(null)
   useLayoutEffect(() => {
-    const node = nodeRef.current
     const observer = new ResizeObserver(entries => {
       entries.forEach(entry => {
-        if (mountedRef.current && entry.target === node) {
-          const ratio = entry.contentRect.width / 320
-          setFontSize(Math.floor(ratio * base))
-        }
+        if (entry.target !== div.current) return
+        const { width } = entry.contentRect
+        const ratio = width / 320
+        const next = Math.floor(ratio * base)
+        setFontSize(next)
       })
     })
+    observer.observe(div.current)
 
-    observer.observe(node)
-    return () => observer.unobserve(node)
+    return () => observer.unobserve(div.current)
   }, [base])
 
   return (
-    <div ref={nodeRef} className={className} style={{ fontSize }}>
+    <div ref={div} className={className} style={{ fontSize }}>
       {children}
     </div>
   )

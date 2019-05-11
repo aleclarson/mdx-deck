@@ -63,11 +63,7 @@ export const Presenter = props => {
         >
           <Zoom zoom={1 / 4}>
             {Next && (
-              <Slide
-                path={nextIndex + '/*'}
-                index={nextIndex}
-                context={{ step: nextStep }}
-              >
+              <Slide index={nextIndex} context={{ step: nextStep }}>
                 <Next />
               </Slide>
             )}

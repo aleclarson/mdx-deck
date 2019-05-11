@@ -6,10 +6,11 @@ export const Notes = props => {
   useEffect(() => {
     if (!context || !context.register) return
     if (typeof context.index === 'undefined') return
+    // The last <Notes/> in the slide is always used.
     context.register(context.index, {
       notes: props.children,
     })
-  }, [])
+  }, [props.children])
 
   return false
 }
